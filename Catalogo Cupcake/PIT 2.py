@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 import json
 import re
 
-# Constants for UI
+# Constantes
 class UIConstants:
     BG_COLOR = "#f8f8f8"
     BUTTON_COLOR_GREEN = "#4CAF50"
@@ -31,15 +31,15 @@ class App:
         self.root.title("Sistema de Vendas de Cupcakes")
         self.root.geometry("400x600")
         self.current_frame = None
-        self.users = {}  # Dictionary to store users
-        self.cart = []  # List to store cart items
-        self.image_references = []  # Initialize image references here
-        self.logged_in_user = None # Track do Usuario   
-        self.load_users()  # Load users from file if exists
+        self.users = {}  
+        self.cart = []  
+        self.image_references = [] 
+        self.logged_in_user = None  
+        self.load_users() 
         self.show_home_screen()
 
     def load_users(self):
-        # Load users from a JSON file if it exists
+        # Carregar Usuarios do Json
         try:
             with open('users.json', 'r') as f:
                 user_data = json.load(f)
@@ -48,7 +48,7 @@ class App:
             self.users = {}
 
     def save_users(self):
-        # Convert users to JSON serializable format
+        # Converter usuarios
         user_data = {email: asdict(user) for email, user in self.users.items()}
         with open('users.json', 'w') as f:
             json.dump(user_data, f)
@@ -124,7 +124,7 @@ class App:
             Cupcake("Cupcake de Red Velvet", 6.00, "CupcakeRedVelvet.png")
         ]
 
-        # Store references to the images
+        # Imagens
         self.image_references = []
 
         for cupcake in self.cupcakes:
@@ -132,7 +132,7 @@ class App:
             frame.pack(pady=10)
 
             try:
-                # Open the image using Pillow
+                # Pil para imagens
                 pil_image = Image.open(cupcake.image)
                 pil_image = pil_image.resize((100, 100), Image.LANCZOS)
                 tk_image = ImageTk.PhotoImage(pil_image)
@@ -225,7 +225,7 @@ class App:
             return
 
         messagebox.showinfo("Pagamento", "Pagamento realizado com sucesso!")
-        self.cart = []  # Limpa o carrinho após o pagamento
+        self.cart = []  # Limpa o carrinho
         self.show_catalog_screen()
 
     def show_cart_screen(self):
